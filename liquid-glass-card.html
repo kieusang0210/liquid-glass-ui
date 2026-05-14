@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Liquid Glass Card UI Component</title>
+  <style>
+    /* ==========================================================================
+       CSS Variables & Theming
+       ========================================================================== */
+    :root {
+      /* Light Mode Variables */
+      --bg-gradient: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+      --glass-bg: rgba(255, 255, 255, 0.25);
+      --glass-border: rgba(255, 255, 255, 0.4);
+      --glass-shadow: rgba(31, 38, 135, 0.15);
+      --glass-highlight: rgba(255, 255, 255, 0.6);
+      --text-main: #1e1e24;
+      --text-muted: #4a4a5a;
+      --accent-color: #6a11cb;
+      --accent-hover: #2575fc;
+      --card-bg-solid: #ffffff;
+    }
+
+    [data-theme="dark"] {
+      /* Dark Mode Variables */
+      --bg-gradient: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+      --glass-bg: rgba(16, 18, 27, 0.4);
+      --glass-border: rgba(255, 255, 255, 0.1);
+      --glass-shadow: rgba(0, 0, 0, 0.5);
+      --glass-highlight: rgba(255, 255, 255, 0.15);
+      --text-main: #ffffff;
+      --text-muted: #a0a0b0;
+      --accent-color: #00d2ff;
+      --accent-hover: #3a7bd5;
+      --card-bg-solid: #1a1a24;
+    }
+
+    /* ==========================================================================
+       Global Styles
+       ========================================================================== */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--bg-gradient);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-main);
+      transition: background 0.5s ease, color 0.5s ease;
+      overflow-x: hidden;
+      padding: 2rem;
+    }
+
+    /* Background decorative blobs to enhance glass effect */
+    .bg-blobs {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: -1;
+    }
+
+    .blob {
+      position: absolute;
+      filter: blur(80px);
+      border-radius: 50%;
+      opacity: 0.6;
+      animation: float-blob 10s infinite alternate ease-in-out;
+    }
+
+    .blob-1 {
+      top: -10%;
+      left: -10%;
+      width: 400px;
+      height: 400px;
+      background: #ff9a9e;
+    }
+
+    .blob-2 {
+      bottom: -10%;
+      right: -10%;
+      width: 500px;
+      height: 500px;
+      background: #fecfef;
+    }
+    
+    [data-theme="dark"] .blob-1 { background: #6a11cb; }
+    [data-theme="dark"] .blob-2 { background: #2575fc; }
+
+    @keyframes float-blob {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(50px, 50px) scale(1.1); }
+    }
+
+    /* Theme Toggle Button */
+    .theme-toggle {
+      position: absolute;
+      top: 2rem;
+      right: 2rem;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      color: var(--text-main);
+      padding: 0.75rem 1.5rem;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: 600;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+      z-index: 10;
+      box-shadow: 0 4px 15px var(--glass-shadow);
+    }
+
+    .theme-toggle:hover {
+      background: var(--glass-highlight);
+      transform: translateY(-2px);
+    }
+
+    .theme-toggle:focus-visible {
+      outline: 2px solid var(--accent-color);
+      outline-offset: 2px;
+    }
+
+    /* ==========================================================================
+       Liquid Glass Card Styles
+       ========================================================================== */
+    .glass-card {
+      position: relative;
+      width: 100%;
+      max-width: 420px;
+      border-radius: 24px;
+      padding: 2rem;
+      
+      /* Liquid Glass Core Properties */
+      background: var(--glass-bg);
+      backdrop-filter: blur(16px) saturate(120%);
+      -webkit-backdrop-filter: blur(16px) saturate(120%);
+      border: 1px solid var(--glass-border);
+      border-top: 1px solid rgba(255, 255, 255, 0.5); /* Edge lighting */
+      border-left: 1px solid rgba(255, 255, 255, 0.5);
+      
+      box-shadow: 0 10px 30px var(--glass-shadow);
+      
+      /* Smooth transitions & performance */
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+                  box-shadow 0.4s ease, 
+                  border-color 0.4s ease;
+      will-change: transform, box-shadow;
+      
+      /* Reset 3D transform origin */
+      transform-style: preserve-3d;
+      z-index: 1;
+      overflow: hidden; /* For edge light effect */
+    }
+
+    [data-theme="dark"] .glass-card {
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+      border-left: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    /* Interactive Light reflection */
+    .glass-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      border-radius: inherit;
+      background: radial-gradient(
+        800px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
+        rgba(255, 255, 255, 0.15),
+        transparent 40%
+      );
+      z-index: 0;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      pointer-events: none;
+    }
+
+    /* Hover States */
+    .glass-card:hover {
+      /* Floating effect */
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 20px 40px var(--glass-shadow), 
+                  0 0 20px rgba(255,255,255,0.1) inset; /* Inner glow */
+      border-color: var(--glass-highlight);
+    }
+
+    .glass-card:hover::before {
+      opacity: 1;
+    }
+
+    /* Focus state for accessibility */
+    .glass-card:focus-within {
+      outline: 2px solid var(--accent-color);
+      outline-offset: 4px;
+    }
+
+    /* Card Content Structure */
+    .card-content {
+      position: relative;
+      z-index: 2; /* Place above light reflection */
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      /* Prevent text from taking 3d transform incorrectly */
+      transform: translateZ(30px); 
+    }
+
+    /* Image Wrapper */
+    .card-img-wrapper {
+      width: 100%;
+      height: 200px;
+      border-radius: 16px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .card-img-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .glass-card:hover .card-img-wrapper img {
+      transform: scale(1.08); /* Zoom effect on hover */
+    }
+
+    /* Text & Typography */
+    .card-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(90deg, var(--text-main), var(--accent-color));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .card-description {
+      font-size: 0.95rem;
+      line-height: 1.5;
+      color: var(--text-muted);
+      /* Scrollable text if too long */
+      max-height: 80px;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: var(--glass-border) transparent;
+      padding-right: 5px;
+    }
+
+    .card-description::-webkit-scrollbar {
+      width: 4px;
+    }
+    .card-description::-webkit-scrollbar-thumb {
+      background: var(--glass-border);
+      border-radius: 4px;
+    }
+
+    /* Animated Stats Group */
+    .card-stats {
+      display: flex;
+      justify-content: space-between;
+      padding-top: 1rem;
+      border-top: 1px solid var(--glass-border);
+    }
+
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      /* Staggered animation setup */
+      opacity: 0.7;
+      transform: translateY(10px);
+      transition: all 0.4s ease;
+    }
+
+    .glass-card:hover .stat-item {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .glass-card:hover .stat-item:nth-child(1) { transition-delay: 0.1s; }
+    .glass-card:hover .stat-item:nth-child(2) { transition-delay: 0.2s; }
+    .glass-card:hover .stat-item:nth-child(3) { transition-delay: 0.3s; }
+
+    .stat-value {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .stat-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      margin-top: 0.25rem;
+    }
+
+    /* Interactive Button */
+    .card-btn {
+      width: 100%;
+      padding: 1rem;
+      border: none;
+      border-radius: 12px;
+      background: var(--accent-color);
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .card-btn:hover {
+      background: var(--accent-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+    }
+
+    .card-btn:focus-visible {
+      outline: 2px solid #fff;
+      outline-offset: 2px;
+    }
+
+    /* Button Icon Animation */
+    .card-btn svg {
+      width: 18px;
+      height: 18px;
+      transition: transform 0.3s ease;
+    }
+
+    .card-btn:hover svg {
+      transform: translateX(4px);
+    }
+
+    /* ==========================================================================
+       Responsive Adjustments
+       ========================================================================== */
+    @media (max-width: 768px) {
+      .glass-card {
+        padding: 1.5rem;
+      }
+      
+      .card-img-wrapper {
+        height: 180px;
+      }
+      
+      .card-title {
+        font-size: 1.25rem;
+      }
+      
+      .stat-value {
+        font-size: 1.1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 1rem;
+      }
+
+      .glass-card {
+        padding: 1.25rem;
+        max-width: 100%;
+      }
+
+      /* Reduce 3D effect on small mobile to prevent overflow/glitch */
+      .glass-card:hover {
+        transform: translateY(-5px); 
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Decorative Background -->
+  <div class="bg-blobs" aria-hidden="true">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+  </div>
+
+  <!-- Theme Toggle -->
+  <button class="theme-toggle" id="themeToggle" aria-label="Toggle Dark/Light Mode">
+    Switch to Dark Mode
+  </button>
+
+  <!-- Liquid Glass Card Component -->
+  <article class="glass-card" id="glassCard" tabindex="0">
+    <div class="card-content">
+      
+      <div class="card-img-wrapper">
+        <!-- Optimized placeholder, replace with actual image -->
+        <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop" alt="Abstract fluid art in vibrant colors" loading="lazy">
+      </div>
+
+      <div class="card-body">
+        <h2 class="card-title">Liquid Aesthetics</h2>
+        <p class="card-description">
+          Experience the future of UI design. This liquid glass card features dynamic blurring, interactive 3D lighting, and smooth animations that respond to your touch and movement.
+        </p>
+      </div>
+
+      <div class="card-stats">
+        <div class="stat-item">
+          <span class="stat-value">60</span>
+          <span class="stat-label">FPS</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value">3D</span>
+          <span class="stat-label">Tilt</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value">100%</span>
+          <span class="stat-label">Fluid</span>
+        </div>
+      </div>
+
+      <button class="card-btn">
+        Explore More
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+        </svg>
+      </button>
+      
+    </div>
+  </article>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      /* ==========================================================================
+         Theme Toggle Logic
+         ========================================================================== */
+      const themeToggle = document.getElementById('themeToggle');
+      const root = document.documentElement;
+      
+      // Check for saved theme or system preference
+      const savedTheme = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      
+      if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+        root.setAttribute('data-theme', 'dark');
+        themeToggle.textContent = 'Switch to Light Mode';
+      }
+
+      themeToggle.addEventListener('click', () => {
+        const currentTheme = root.getAttribute('data-theme');
+        if (currentTheme === 'dark') {
+          root.removeAttribute('data-theme');
+          localStorage.setItem('theme', 'light');
+          themeToggle.textContent = 'Switch to Dark Mode';
+        } else {
+          root.setAttribute('data-theme', 'dark');
+          localStorage.setItem('theme', 'dark');
+          themeToggle.textContent = 'Switch to Light Mode';
+        }
+      });
+
+      /* ==========================================================================
+         3D Tilt & Lighting Effect Logic
+         ========================================================================== */
+      const card = document.getElementById('glassCard');
+      
+      // Check if user prefers reduced motion for accessibility
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+      card.addEventListener('mousemove', (e) => {
+        if (prefersReducedMotion.matches) return; // Skip animation if user prefers reduced motion
+
+        const rect = card.getBoundingClientRect();
+        
+        // Calculate mouse position relative to the card
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        // Update CSS variables for the interactive light reflection (pseudo-element)
+        card.style.setProperty('--mouse-x', `${x}px`);
+        card.style.setProperty('--mouse-y', `${y}px`);
+
+        // Calculate rotation for 3D tilt
+        // Center is (rect.width / 2), (rect.height / 2)
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        
+        // Map distance to rotation angles (max 10 degrees to keep it subtle)
+        const rotateX = ((y - centerY) / centerY) * -10; 
+        const rotateY = ((x - centerX) / centerX) * 10;
+
+        // Apply transform
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+      });
+
+      // Reset transform on mouse leave
+      card.addEventListener('mouseleave', () => {
+        if (prefersReducedMotion.matches) return;
+        
+        card.style.transform = ''; // Removes inline style, falling back to CSS :hover or default
+        card.style.setProperty('--mouse-x', '50%');
+        card.style.setProperty('--mouse-y', '50%');
+      });
+      
+      // Accessibility: Also trigger focus styles if keyboard navigated
+      card.addEventListener('focus', () => {
+        card.style.transform = 'translateY(-10px) scale(1.02)';
+      });
+      card.addEventListener('blur', () => {
+        card.style.transform = '';
+      });
+    });
+  </script>
+</body>
+</html>
