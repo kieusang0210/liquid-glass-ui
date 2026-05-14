@@ -108,7 +108,7 @@ button{font-family:var(--font)}
 /* ═══════════════════════════════════════
    HERO
    ═══════════════════════════════════════ */
-.hero{min-height:100svh;display:flex;align-items:center;padding:clamp(7rem,12vh,9rem) 0 clamp(4rem,8vh,6rem);position:relative;overflow:hidden}
+.hero{min-height:100svh;display:flex;align-items:center;padding:clamp(7rem,12vh,9rem) 0 clamp(4rem,8vh,6rem);position:relative;overflow:visible}
 
 /* Decorative grid background */
 .hero-grid-bg{position:absolute;inset:0;background-image:
@@ -125,7 +125,7 @@ button{font-family:var(--font)}
 .orb--2{width:400px;height:400px;background:rgba(168,85,247,.1);bottom:-100px;left:-100px;animation:float 10s ease-in-out infinite reverse}
 @keyframes float{0%,100%{transform:translate(0,0)}50%{transform:translate(30px,-30px)}}
 
-.hero-inner{display:grid;grid-template-columns:minmax(0,1fr) minmax(320px,1fr);gap:clamp(2rem,5vw,4rem);align-items:center;position:relative;z-index:2}
+.hero-inner{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(2rem,4vw,4rem);align-items:center;position:relative;z-index:2;width:100%}
 .hero-content{max-width:600px}
 .hero-label{font-size:.8rem;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--text-2);margin-bottom:2rem;display:inline-flex;align-items:center;gap:.8rem}
 .hero-dot{width:8px;height:8px;border-radius:50%;background:var(--accent);animation:pulse 2s ease-in-out infinite}
@@ -133,7 +133,7 @@ button{font-family:var(--font)}
 .hero-title{font-size:clamp(2.35rem,4.2vw,4rem);font-weight:800;margin-bottom:1.5rem;letter-spacing:0}
 .hero-line{display:block}
 .hero-title em{font-style:normal;color:var(--accent)}
-.text-stroke{color:transparent;-webkit-text-stroke:1.5px rgba(0,0,0,.2)}
+.text-stroke{color:#0f3460;-webkit-text-stroke:0;background:linear-gradient(135deg,#0f3460 0%,#1a1a6e 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 2px 6px rgba(15,52,96,.15))}
 .hero-sub{font-size:clamp(.95rem,1.1vw,1.08rem);color:var(--text-2);max-width:560px;margin-bottom:2rem;line-height:1.75}
 .hero-actions{display:flex;gap:1rem;flex-wrap:wrap}
 
@@ -1322,3 +1322,916 @@ body{
         radial-gradient(390px circle at var(--mouse-x,50%) var(--mouse-y,50%),rgba(255,255,255,.92),rgba(218,226,234,.24) 38%,transparent 70%),
         linear-gradient(140deg,rgba(255,255,255,.28),transparent 28% 70%,rgba(210,218,226,.12)) !important;
 }
+
+
+/* ═══════════════════════════════════════
+   v11 — UI/UX PREMIUM UPGRADE
+   Sửa alignment, card differentiation,
+   process stepper, CTA, header, testi,
+   section rhythm. Không touch pricing.
+   ═══════════════════════════════════════ */
+
+/* ─── SECTION RHYTHM — Phân biệt background ─── */
+/* Trả lại warm white cho odd sections */
+.services, .process, .about, .faq {
+    background:
+        radial-gradient(ellipse at 8% 0%, rgba(255,255,255,.92), transparent 44%),
+        radial-gradient(ellipse at 92% 100%, rgba(255,248,240,.64), transparent 48%),
+        linear-gradient(135deg, #f9f8f5 0%, #faf9f6 100%) !important;
+}
+
+/* Soft cool-grey cho even sections */
+.work, .clients, .news {
+    background:
+        radial-gradient(ellipse at 10% 0%, rgba(255,255,255,.88), transparent 44%),
+        radial-gradient(ellipse at 88% 100%, rgba(240,243,248,.52), transparent 48%),
+        linear-gradient(135deg, #f3f4f3 0%, #f0f1f0 100%) !important;
+}
+
+/* Team section — warm peach tint */
+.team {
+    background:
+        radial-gradient(ellipse at 50% 0%, rgba(255,248,240,.9), transparent 52%),
+        radial-gradient(ellipse at 92% 88%, rgba(255,238,220,.5), transparent 48%),
+        linear-gradient(135deg, #fdf9f5 0%, #f8f5ef 100%) !important;
+}
+
+/* Testi — very light cool */
+.testi {
+    background:
+        radial-gradient(ellipse at 12% 10%, rgba(255,255,255,.96), transparent 44%),
+        linear-gradient(135deg, #f8f9fb 0%, #f4f5f7 100%) !important;
+}
+
+/* Stats band — pure white with subtle shadow feel */
+.stats {
+    background: rgba(255,255,255,.92) !important;
+    box-shadow: 0 0 0 1px rgba(0,0,0,.04);
+}
+
+/* ─── HEADER v11 — Height + CTA accent ─── */
+.header {
+    padding: 0;
+}
+.nav {
+    height: clamp(68px, 6vw, 84px);
+    display: flex;
+    align-items: center;
+}
+/* CTA button trong nav — visible accent ngay từ đầu */
+.nav-cta {
+    background: var(--accent) !important;
+    color: #fff !important;
+    border-color: var(--accent) !important;
+    font-weight: 700;
+    padding: .6rem 1.4rem;
+    font-size: .82rem;
+    letter-spacing: .3px;
+    box-shadow: 0 6px 20px rgba(255,94,0,.25);
+    transition: all .3s var(--ease);
+}
+.nav-cta:hover {
+    background: #e55500 !important;
+    transform: translateY(-1px);
+    box-shadow: 0 10px 28px rgba(255,94,0,.32);
+}
+/* Header scrolled — rõ hơn */
+.header.scrolled {
+    background: rgba(255,255,255,.92) !important;
+    backdrop-filter: blur(20px) saturate(1.5);
+    box-shadow: 0 1px 0 rgba(0,0,0,.06), 0 4px 24px rgba(0,0,0,.04);
+    border-bottom: none;
+}
+
+/* ─── FEATURE CARDS (svc-card) — Trả lại left-align + icon chip ─── */
+.svc-card {
+    text-align: left !important;
+}
+.svc-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, rgba(255,94,0,.12), rgba(255,94,0,.06));
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    margin: 0 0 1.4rem 0 !important;
+    flex-shrink: 0;
+    border: 1px solid rgba(255,94,0,.15);
+    transition: all .3s;
+}
+.svc-card:hover .svc-icon {
+    background: linear-gradient(135deg, rgba(255,94,0,.2), rgba(255,94,0,.1));
+    transform: scale(1.06);
+}
+.svc-card h3, .svc-card p {
+    text-align: left !important;
+}
+.svc-tags {
+    justify-content: flex-start !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+.svc-num {
+    font-size: 5rem;
+    font-weight: 900;
+    color: rgba(0,0,0,.025);
+    line-height: 1;
+    position: absolute;
+    top: .2rem;
+    right: 1rem;
+    pointer-events: none;
+    user-select: none;
+}
+
+/* ─── PROCESS SECTION v11 — Stepper Timeline ─── */
+/* Desktop: horizontal stepper với connector */
+.process-grid {
+    position: relative;
+    align-items: start;
+}
+
+/* Connector line ngang giữa các step */
+.process-grid::before {
+    content: '';
+    position: absolute;
+    top: 36px; /* Căn giữa badge */
+    left: calc(24px + 2.5%);
+    right: calc(24px + 2.5%);
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,94,0,.3) 15%, rgba(255,94,0,.3) 85%, transparent);
+    z-index: 0;
+    pointer-events: none;
+}
+
+.step {
+    text-align: left !important;
+    position: relative;
+    z-index: 1;
+}
+
+/* Step number badge — circle lớn thay thế */
+.step-top {
+    justify-content: flex-start !important;
+    margin-bottom: 1.4rem;
+    display: flex;
+    align-items: center;
+    gap: .9rem;
+}
+
+.step-num {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), #ff8a3d);
+    color: #fff !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    font-size: .8rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    flex-shrink: 0;
+    box-shadow: 0 6px 20px rgba(255,94,0,.3);
+    border: 2px solid rgba(255,255,255,.8);
+    /* Hiển thị dưới dạng flex container */
+    display: flex !important;
+    line-height: 1;
+}
+
+/* Ẩn step-line cũ — thay bằng ::before trên grid */
+.step-line { display: none; }
+
+.step h3 { text-align: left !important; }
+.step p { text-align: left !important; }
+
+/* Step hover — subtle accent border */
+.step:hover {
+    border-color: rgba(255,94,0,.25) !important;
+}
+
+/* Mobile: vertical stepper */
+@media(max-width: 768px) {
+    .process-grid::before {
+        display: none;
+    }
+    .process-grid {
+        gap: 1rem;
+    }
+}
+
+/* ─── TEAM CARDS v11 — Top accent + avatar upgrade ─── */
+.team-card {
+    position: relative;
+    padding-top: 2.4rem !important;
+    text-align: left !important;
+}
+
+/* Accent line trên đầu card */
+.team-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 1.5rem;
+    right: 1.5rem;
+    height: 3px;
+    border-radius: 0 0 3px 3px;
+    background: linear-gradient(90deg, var(--accent), rgba(255,94,0,.4), transparent);
+    opacity: 0;
+    transition: opacity .4s var(--ease);
+    z-index: 2;
+}
+.team-card:hover::before {
+    opacity: 1;
+}
+
+/* Avatar — canh trái thay vì center */
+.team-ava {
+    margin: 0 0 1.2rem 0 !important;
+    width: 56px;
+    height: 56px;
+    font-size: 1rem;
+    box-shadow: 0 8px 24px rgba(255,94,0,.2);
+}
+
+.team-card h3, .team-bio {
+    text-align: left !important;
+}
+.team-role {
+    text-align: left !important;
+    margin-bottom: 1rem;
+}
+
+/* ─── TESTIMONIAL CARDS v11 — Quote mark + size ─── */
+.testi-card {
+    position: relative;
+    padding-top: 3rem !important;
+}
+
+/* Quote mark lớn mờ */
+.testi-card::before {
+    content: '\201C';
+    position: absolute !important;
+    top: .8rem !important;
+    left: 1.5rem !important;
+    right: auto !important;
+    font-size: 5rem !important;
+    line-height: 1 !important;
+    font-weight: 900 !important;
+    color: var(--accent) !important;
+    opacity: .12 !important;
+    font-family: Georgia, serif !important;
+    z-index: 2 !important;
+    background: none !important;
+    border-radius: 0 !important;
+    pointer-events: none;
+}
+
+.testi-card p {
+    font-size: 1rem !important;
+    line-height: 1.75 !important;
+}
+
+/* Avatar + footer upgrade */
+.testi-ava {
+    width: 52px;
+    height: 52px;
+    font-size: .82rem;
+    box-shadow: 0 6px 18px rgba(255,94,0,.18);
+}
+
+/* Testi-card--feat: rõ accent hơn */
+.testi-card--feat {
+    border-color: rgba(255,94,0,.22) !important;
+    box-shadow:
+        0 0 0 1px rgba(255,94,0,.1),
+        0 30px 80px rgba(18,22,25,.12),
+        0 1px 0 rgba(255,255,255,.95) inset !important;
+}
+
+/* Stars */
+.testi-stars {
+    font-size: 1.1rem;
+    letter-spacing: 3px;
+    margin-bottom: 1.4rem;
+}
+
+/* ─── ABOUT SECTION v11 — 2-col tighter ─── */
+.about-layout {
+    gap: clamp(3rem, 7vw, 6rem);
+    align-items: center;
+}
+
+/* Accent vertical bar bên trái title */
+.about-left .section-title {
+    padding-left: 1.2rem;
+    border-left: 3px solid var(--accent);
+    margin-bottom: 1.5rem;
+}
+
+.about-vals .aval {
+    text-align: left !important;
+}
+.aval h4 {
+    text-align: left !important;
+    font-size: 1rem;
+    margin-bottom: .5rem;
+}
+.aval p {
+    text-align: left !important;
+}
+
+/* ─── FINAL CTA v11 — Card treatment ─── */
+.cta {
+    padding: clamp(4rem, 8vw, 7rem) 0;
+    background:
+        radial-gradient(ellipse at 50% 60%, rgba(255,94,0,.07), transparent 60%),
+        linear-gradient(135deg, #f9f7f4 0%, #faf8f4 100%) !important;
+}
+
+/* Xóa ::before blob cũ — sẽ dùng card wrap */
+.cta::before { display: none; }
+
+/* CTA card container */
+.cta-inner {
+    background:
+        radial-gradient(ellipse at 20% 10%, rgba(255,255,255,.9), transparent 50%),
+        radial-gradient(ellipse at 80% 90%, rgba(255,238,220,.6), transparent 50%),
+        linear-gradient(135deg, rgba(255,255,255,.85), rgba(255,248,240,.7));
+    border: 1px solid rgba(255,94,0,.18);
+    border-radius: 32px;
+    padding: clamp(3rem, 6vw, 5rem) clamp(2rem, 5vw, 4rem);
+    position: relative;
+    overflow: hidden;
+    box-shadow:
+        0 0 0 1px rgba(255,255,255,.9) inset,
+        0 40px 100px rgba(255,94,0,.08),
+        0 20px 60px rgba(0,0,0,.06);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+}
+
+/* Glow phía sau card */
+.cta-inner::before {
+    content: '';
+    position: absolute;
+    inset: -20%;
+    z-index: -1;
+    background: radial-gradient(ellipse at 50% 50%, rgba(255,94,0,.08), transparent 60%);
+    pointer-events: none;
+    filter: blur(40px);
+}
+
+/* Floating decorative dots */
+.cta-inner::after {
+    content: '';
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    width: 120px;
+    height: 120px;
+    background-image:
+        radial-gradient(circle, rgba(255,94,0,.15) 1px, transparent 1px);
+    background-size: 16px 16px;
+    border-radius: 50%;
+    opacity: .5;
+    pointer-events: none;
+}
+
+.cta-title {
+    font-size: clamp(2.8rem, 6vw, 5.2rem) !important;
+    margin-bottom: 1.2rem;
+    line-height: 1.05;
+}
+
+.cta-desc {
+    font-size: 1.08rem;
+    max-width: 520px;
+    margin-bottom: 2.8rem;
+    color: var(--text-2);
+}
+
+/* CTA buttons */
+.cta-actions .btn--primary {
+    padding: 1.1rem 2.6rem;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: .2px;
+    box-shadow: 0 20px 50px rgba(255,94,0,.3), 0 1px 0 rgba(255,255,255,.35) inset;
+}
+
+.cta-actions .btn--ghost {
+    padding: 1.1rem 2.4rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-color: rgba(0,0,0,.12) !important;
+    color: var(--text) !important;
+}
+
+/* ─── STATS BAND v11 — Dividers + larger numbers ─── */
+.stats {
+    padding: clamp(3rem, 5vw, 4.5rem) 0;
+}
+.stat {
+    position: relative;
+}
+/* Divider dọc giữa các stat */
+.stat:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 20%;
+    height: 60%;
+    width: 1px;
+    background: linear-gradient(180deg, transparent, rgba(0,0,0,.1) 30%, rgba(0,0,0,.1) 70%, transparent);
+}
+.stat-num {
+    font-size: clamp(3rem, 5.5vw, 4rem);
+    color: #1a1a1a;
+}
+.stat-suffix {
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    vertical-align: super;
+    line-height: 1;
+}
+.stat p {
+    font-size: .82rem;
+    letter-spacing: 1px;
+    margin-top: .6rem;
+}
+
+/* ─── KNOWLEDGE CARDS (news) v11 — Content preview ─── */
+/* News/Blog section */
+.news {
+    padding: clamp(4.5rem, 8vw, 8rem) 0;
+}
+
+/* Thumbnail area rõ hơn */
+.news-thumb {
+    height: 220px;
+    overflow: hidden;
+    border-radius: 12px 12px 0 0;
+    position: relative;
+}
+
+/* Category tag nổi hơn */
+.news-tag {
+    background: linear-gradient(135deg, var(--accent), #ff7a18) !important;
+    color: #fff !important;
+    padding: .35rem .9rem !important;
+    border-radius: 100px !important;
+    font-size: .68rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 1px !important;
+    box-shadow: 0 4px 12px rgba(255,94,0,.2);
+}
+
+.news-body {
+    padding: 1.6rem !important;
+}
+
+.news-body h3 {
+    font-size: 1.08rem !important;
+    font-weight: 700 !important;
+    line-height: 1.45 !important;
+    margin-bottom: .6rem !important;
+    text-align: left !important;
+    color: var(--text) !important;
+}
+
+.news-body p {
+    font-size: .88rem !important;
+    line-height: 1.65 !important;
+    text-align: left !important;
+    color: var(--text-2) !important;
+    margin-top: .5rem !important;
+}
+
+.news-date {
+    font-size: .72rem;
+    color: var(--text-3);
+    margin-top: .9rem;
+}
+
+/* ─── CLIENTS WALL v11 — Trust strip ─── */
+.clients {
+    padding: clamp(3.5rem, 6vw, 5.5rem) 0;
+    border-top: 1px solid rgba(0,0,0,.06);
+    border-bottom: 1px solid rgba(0,0,0,.06);
+}
+
+.client-card {
+    padding: 1.4rem 1.2rem !important;
+    transition: all .35s var(--ease);
+    opacity: .75;
+}
+.client-card:hover {
+    opacity: 1;
+    transform: translateY(-2px) !important;
+}
+.client-name {
+    font-size: .9rem;
+    font-weight: 700;
+    letter-spacing: .2px;
+}
+
+/* ─── FOOTER v11 — Brand col wider ─── */
+.footer {
+    padding: 5rem 0 2.5rem;
+    background:
+        linear-gradient(135deg, rgba(248,247,244,.98), rgba(244,243,240,1)) !important;
+    border-top: 1px solid rgba(0,0,0,.07) !important;
+}
+
+.footer-top {
+    margin-bottom: 3.5rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid rgba(0,0,0,.07);
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.footer-brand-logo {
+    height: clamp(48px, 6vw, 80px);
+    filter: brightness(0);
+}
+
+.footer-tagline {
+    font-size: .95rem;
+    line-height: 1.75;
+    color: var(--text-2);
+    max-width: 360px;
+}
+
+.footer-col h4 {
+    font-size: .72rem;
+    letter-spacing: 2px;
+    margin-bottom: 1rem !important;
+    color: var(--text-3);
+    font-weight: 600;
+}
+
+.footer-col a, .footer-col p {
+    font-size: .88rem;
+    color: var(--text-2);
+    line-height: 1.7;
+    transition: color .25s;
+}
+.footer-col a:hover { color: var(--accent); }
+
+.footer-bottom {
+    font-size: .78rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(0,0,0,.07);
+    color: var(--text-3);
+}
+
+/* ─── WORK / PORTFOLIO v11 — Metric upgrade ─── */
+.work-metric strong {
+    font-size: 1.5rem !important;
+    font-weight: 900 !important;
+    color: var(--accent) !important;
+    letter-spacing: -.5px;
+}
+.work-metric span {
+    font-size: .72rem;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+    color: var(--text-3);
+    margin-top: .15rem;
+}
+
+.work-info {
+    padding: 1.6rem 2rem 2rem !important;
+}
+
+.work-info h3 {
+    font-size: 1.25rem !important;
+    font-weight: 800 !important;
+    margin-bottom: .6rem !important;
+}
+
+.work-info > p {
+    font-size: .9rem !important;
+    line-height: 1.7 !important;
+    margin-bottom: 1.5rem !important;
+}
+
+/* ─── SECTION HEAD — Trả lại left-align cho non-center sections ─── */
+/* Override v8's global center-align cho section-head */
+.section-head:not(.center) {
+    text-align: left !important;
+    max-width: none !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+.section-head:not(.center) .section-desc {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+/* ─── MARQUEE — Trust strip wrapper ─── */
+.marquee {
+    background: rgba(255,255,255,.6);
+    backdrop-filter: blur(12px);
+}
+
+/* ─── GLOBAL TYPOGRAPHY v11 ─── */
+/* h1 hero lớn hơn */
+.hero-title {
+    font-size: clamp(2.6rem, 4.8vw, 4.6rem) !important;
+    line-height: 1.09 !important;
+    letter-spacing: -.5px;
+}
+
+/* Section title rõ hơn */
+.section-title {
+    font-size: clamp(2rem, 3.8vw, 3.4rem) !important;
+    letter-spacing: -.3px;
+    line-height: 1.1;
+}
+
+/* Hero sub-heading */
+.hero-sub {
+    font-size: clamp(1rem, 1.2vw, 1.1rem) !important;
+    line-height: 1.8 !important;
+}
+
+/* ─── HERO TRUST BADGES — Nổi hơn ─── */
+.hero-trust {
+    margin-top: 2.8rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(0,0,0,.08);
+}
+.trust-item strong {
+    font-size: 1.5rem !important;
+    font-weight: 900 !important;
+}
+.trust-item span {
+    font-size: .72rem;
+    font-weight: 600;
+    letter-spacing: 1.2px;
+}
+
+/* ─── SCROLL REVEAL — keep ─── */
+
+/* ─── RESPONSIVE v11 — Mobile fixes ─── */
+@media(max-width: 1024px) {
+    .nav { height: 72px; }
+    .process-grid::before { display: none; }
+    .process-grid { grid-template-columns: repeat(2, 1fr); }
+    .about-left .section-title { border-left: none; padding-left: 0; }
+}
+
+@media(max-width: 768px) {
+    .nav { height: 64px; }
+    .nav-cta { display: none; } /* Hide nav CTA on mobile — hamburger takes over */
+    .cta-inner { border-radius: 24px; padding: 2.5rem 1.5rem; }
+    .cta-inner::after { display: none; }
+    .cta-title { font-size: clamp(2.2rem, 9vw, 3rem) !important; }
+    .team-card { text-align: center !important; }
+    .team-ava { margin: 0 auto 1.2rem !important; }
+    .team-card h3, .team-bio, .team-role { text-align: center !important; }
+    .step { text-align: center !important; }
+    .step-top { justify-content: center !important; }
+    .step h3, .step p { text-align: center !important; }
+    .svc-card { text-align: left !important; }
+    .stat:not(:last-child)::after { display: none; }
+    .stats-row { grid-template-columns: repeat(2, 1fr); gap: 0; }
+    .stat { padding: 1.5rem 1rem; }
+    .section-head:not(.center) { text-align: center !important; }
+    .section-head:not(.center) .section-desc { margin: 0 auto !important; }
+    .about-left .section-title { text-align: center; padding-left: 0; border-left: none; }
+    .aval { text-align: center !important; }
+    .aval h4, .aval p { text-align: center !important; }
+    .footer-top { flex-direction: column; align-items: flex-start; gap: 1.2rem; padding-bottom: 2rem; margin-bottom: 2.5rem; }
+    .testi-card::before { font-size: 4rem !important; top: .6rem !important; }
+    .testi-card { padding-top: 2.5rem !important; }
+    .work-results { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media(max-width: 480px) {
+    .cta-inner { padding: 2rem 1.25rem; border-radius: 20px; }
+    .hero-title { font-size: clamp(2.2rem, 11vw, 3.2rem) !important; }
+    .stats-row { grid-template-columns: 1fr 1fr; }
+    .process-grid { grid-template-columns: 1fr; }
+}
+
+
+/* ═══════════════════════════════════════
+   v12 — BACKGROUND TEXTURE + HERO ILLUS
+   ═══════════════════════════════════════ */
+
+/* ─── GLOBAL: background.png texture overlay cho mọi section ─── */
+body {
+    background-color: #f8f6f2;
+    background-image:
+        url('background.png');
+    background-size: 1080px 1080px;
+    background-repeat: repeat;
+    background-attachment: fixed;
+}
+
+/* Tất cả section dùng texture paper — override tất cả v8-v11 backgrounds */
+.hero, .marquee,
+.services, .work, .clients, .stats, .team,
+.process, .about, .testi, .pricing, .faq, .news, .cta, .footer {
+    background-color: transparent !important;
+    background-image: none !important;
+}
+
+/* Section layer: mỗi section vẫn có tint nhẹ để tạo rhythm */
+.services, .process, .about, .faq {
+    background-color: rgba(252, 250, 247, 0.82) !important;
+}
+.work, .clients, .news {
+    background-color: rgba(244, 244, 242, 0.85) !important;
+}
+.team {
+    background-color: rgba(254, 250, 244, 0.8) !important;
+}
+.testi {
+    background-color: rgba(248, 250, 252, 0.82) !important;
+}
+.stats {
+    background-color: rgba(255, 255, 255, 0.75) !important;
+    box-shadow: 0 0 0 1px rgba(0,0,0,.04);
+}
+.pricing {
+    background-color: rgba(249, 250, 248, 0.88) !important;
+}
+.cta {
+    background-color: rgba(254, 248, 240, 0.88) !important;
+}
+.footer {
+    background-color: rgba(244, 242, 238, 0.95) !important;
+    border-top: 1px solid rgba(0,0,0,.07);
+}
+.hero {
+    background-color: rgba(252, 250, 246, 0.75) !important;
+}
+
+/* Xóa ::before blobs (không cần nữa vì đã có texture) */
+.services::before, .work::before, .clients::before, .team::before,
+.process::before, .about::before, .testi::before, .faq::before,
+.news::before, .cta::before, .footer::before {
+    display: none !important;
+}
+/* Xóa cả ::after blobs */
+.services::after, .work::after, .clients::after, .team::after,
+.process::after, .about::after, .testi::after, .faq::after,
+.news::after, .cta::after {
+    display: none !important;
+}
+
+/* ─── HERO ILLUSTRATION LAYOUT ─── */
+/* hero-inner grid already defined at line ~128 */
+/* Just ensure illustration column aligns center */
+
+.hero-visual {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-illustration {
+    position: relative;
+    width: 100%;
+    max-width: 560px;
+}
+
+/* Main illustration */
+.hero-illus-main {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
+    /* Nhẹ drop shadow để nổi trên texture */
+    filter: drop-shadow(0 24px 60px rgba(0,0,0,.12));
+    animation: heroFloat 5s ease-in-out infinite;
+}
+
+/* Floating clouds */
+.hero-illus-cloud {
+    position: absolute;
+    width: clamp(80px, 12vw, 140px);
+    animation: cloudDrift 7s ease-in-out infinite;
+    opacity: .85;
+}
+
+.hero-illus-cloud--1 {
+    bottom: 8%;
+    left: -5%;
+    animation-delay: 0s;
+    animation-duration: 8s;
+}
+
+.hero-illus-cloud--2 {
+    top: 12%;
+    right: -2%;
+    animation-delay: -3s;
+    animation-duration: 6s;
+    transform: scaleX(-1); /* Mirror */
+    width: clamp(60px, 9vw, 110px);
+    opacity: .6;
+}
+
+/* Float animations */
+@keyframes heroFloat {
+    0%, 100% { transform: translateY(0px); }
+    50%       { transform: translateY(-14px); }
+}
+@keyframes cloudDrift {
+    0%, 100% { transform: translateX(0) translateY(0); }
+    50%       { transform: translateX(8px) translateY(-6px); }
+}
+.hero-illus-cloud--2 {
+    animation-name: cloudDriftMirror;
+}
+@keyframes cloudDriftMirror {
+    0%, 100% { transform: scaleX(-1) translateX(0) translateY(0); }
+    50%       { transform: scaleX(-1) translateX(8px) translateY(-6px); }
+}
+
+/* Float cards positions relative to illustration */
+.float-card--1 {
+    position: absolute;
+    top: 14%;
+    right: -4%;
+    z-index: 10;
+}
+.float-card--2 {
+    position: absolute;
+    bottom: 10%;
+    left: -6%;
+    z-index: 10;
+}
+
+/* ─── HERO TITLE: text-stroke fixed at source (line 136) ─── */
+
+/* ─── HERO RESPONSIVE ─── */
+@media(max-width: 1024px) {
+    .hero-inner {
+        grid-template-columns: 1fr 1fr;
+        gap: 2.5rem;
+        min-height: auto;
+    }
+}
+
+@media(max-width: 768px) {
+    .hero-inner {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 2.5rem;
+    }
+    .hero-illustration {
+        max-width: 320px;
+        margin: 0 auto;
+        order: -1; /* Illus trên, text dưới */
+    }
+    .float-card--1 {
+        top: 5%;
+        right: 0;
+    }
+    .float-card--2 {
+        bottom: 5%;
+        left: 0;
+    }
+    .hero-trust {
+        justify-content: center;
+    }
+    .hero-actions {
+        justify-content: center;
+    }
+    .hero-label {
+        justify-content: center;
+    }
+}
+
+/* ─── FIX: Hero overflow — cho phép illustration hiển thị đầy đủ ─── */
+.hero {
+    overflow: visible !important;
+}
+/* Container hero không clip illustration */
+.hero-inner {
+    overflow: visible;
+}
+/* Giới hạn illustration trong grid cell */
+.hero-visual {
+    overflow: visible;
+    max-width: 100%;
+}
+.hero-illustration {
+    max-width: 100%;
+    overflow: visible;
+}
+.hero-illus-main {
+    overflow: clip; /* giữ clip chỉ trên ảnh */
+    max-width: 100%;
+    height: auto;
+}
+
+
+
