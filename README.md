@@ -3,7 +3,7 @@
 Bản demo giao diện thiết kế web đỉnh cao dành cho các agency.
 Dự án được xây dựng và code bằng Vanilla HTML, CSS, JS; ứng dụng GSAP Animation & IntersectionObserver tạo ra một website có Motion UX mượt mà, chuyên nghiệp. Đây là dự án **Mã nguồn mở (Open Source)**, cho phép mọi người tham khảo, học hỏi và đóng góp.
 
-🚀 **[Xem Live Site Demo](https://kieusang0210.github.io/liquid-glass-ui/)**
+🚀 **[Xem Live Site Demo](https://kieusang-easy.netlify.app/)**
 
 ## Đặc điểm kỹ thuật
 - **Mobile First / Responsive Design**: Tương thích hoàn hảo mọi thiết bị.
