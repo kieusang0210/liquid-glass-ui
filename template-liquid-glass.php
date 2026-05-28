@@ -10,8 +10,41 @@ add_action( 'wp_enqueue_scripts', function() {
     wp_enqueue_script( 'liquid-glass-main', get_stylesheet_directory_uri() . '/liquid-glass-assets/main.js', array('liquid-glass-gsap'), '1.0.0', true );
 } );
 
-get_header();
 ?>
+<!DOCTYPE html>
+<html <?php language_attributes(); ?>>
+<head>
+    <meta charset="<?php bloginfo( 'charset' ); ?>">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <?php wp_head(); ?>
+</head>
+<body <?php body_class(); ?>>
+
+    <!-- Custom Cursor -->
+    <div class="cursor" id="cursor"></div>
+
+    <div class="site-wrapper">
+
+        <!-- ═══ HEADER ═══ -->
+        <header class="header" id="header">
+            <nav class="nav">
+                <a href="#" class="nav-logo">
+                    <img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/liquid-glass-assets/logo.png' ); ?>" alt="Easy Marketing" height="56">
+                </a>
+                <div class="nav-links" id="navLinks">
+                    <a href="#services">Dịch Vụ</a>
+                    <a href="#work">Portfolio</a>
+                    <a href="#process">Quy Trình</a>
+                    <a href="#about">Về Chúng Tôi</a>
+                    <a href="#pricing">Bảng Giá</a>
+                    <a href="#faq">FAQ</a>
+                </div>
+                <a href="#contact" class="nav-cta">Liên Hệ</a>
+                <button class="nav-toggle" id="navToggle" aria-label="Menu">
+                    <span></span><span></span>
+                </button>
+            </nav>
+        </header>
 
 <div class="liquid-glass-wrapper">
     
@@ -671,6 +704,201 @@ get_header();
                     <div class="footer-legal">
                         <a href="#">Privacy Policy</a>
                         <a href="#">Terms of Service</a>
+                        </ul>
+                        <a href="#contact" class="btn btn--primary">Bắt Đầu Ngay</a>
+                    </div>
+                    <div class="price-card" data-hover>
+                        <h3>Bứt Phá</h3>
+                        <p class="price-target">Dành cho chuỗi tiệm, muốn tăng trưởng nhanh</p>
+                        <div class="price-val">$199<span>/tháng</span></div>
+                        <div class="price-meta">
+                            <span>4 videos/week</span>
+                            <span>Ads included</span>
+                        </div>
+                        <ul>
+                            <li>Tất cả dịch vụ gói Tăng Trưởng</li>
+                            <li>TikTok/Reels: 4 Video chuyên nghiệp/tuần</li>
+                            <li>Ngân sách Ads được quản lý: $100/tháng</li>
+                            <li>Tối ưu đa kênh liên tục (FB + Google + Yelp)</li>
+                            <li>Dedicated Account Manager riêng</li>
+                            <li>Tư vấn chiến lược 1-1 hàng tháng</li>
+                            <li>Ưu tiên hỗ trợ 24/7 qua Zalo/WhatsApp</li>
+                        </ul>
+                        <a href="#contact" class="btn btn--outline">Bắt Đầu Ngay</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══ FAQ ═══ -->
+        <section class="faq" id="faq">
+            <div class="container">
+                <div class="section-head center">
+                    <p class="section-label">( 07 — Câu Hỏi )</p>
+                    <h2 class="section-title">Thắc mắc thường gặp.</h2>
+                </div>
+                <div class="faq-list">
+                    <details class="faq-item" data-hover>
+                        <summary>Tôi mới mở tiệm, chưa có gì cả — Easy có giúp được không?</summary>
+                        <div class="faq-answer"><p>Hoàn toàn được! Đa số khách hàng của Easy là tiệm mới mở hoặc chưa có online presence. Chúng tôi sẽ setup từ A-Z: Google Business Profile, Facebook Page, Instagram, Yelp, thiết kế logo, chụp hình tiệm, và bắt đầu chạy marketing ngay từ tuần đầu tiên.</p></div>
+                    </details>
+                    <details class="faq-item" data-hover>
+                        <summary>Bao lâu thì thấy kết quả?</summary>
+                        <div class="faq-answer"><p>Tùy theo dịch vụ: Paid Ads thường thấy kết quả trong 1-2 tuần đầu. SEO & Google Maps cần 2-3 tháng để lên top. Social Media thường thấy tăng trưởng tương tác sau 4-6 tuần. Chúng tôi luôn đặt KPI rõ ràng từ đầu để bạn theo dõi tiến độ.</p></div>
+                    </details>
+                    <details class="faq-item" data-hover>
+                        <summary>Có hợp đồng dài hạn hay phí ẩn không?</summary>
+                        <div class="faq-answer"><p>Không! Easy hoạt động theo mô hình subscription — thanh toán hàng tháng, hủy bất cứ lúc nào mà không mất phí. Không có setup fee, không phí ẩn. Giá đã bao gồm tất cả dịch vụ trong gói.</p></div>
+                    </details>
+                    <details class="faq-item" data-hover>
+                        <summary>Tôi không rành công nghệ lắm, có phức tạp không?</summary>
+                        <div class="faq-answer"><p>Không hề! Bạn chỉ cần gửi ảnh/video tiệm qua Zalo hoặc WhatsApp, phần còn lại Easy lo hết. Chúng tôi sẽ gọi video hướng dẫn bạn từ cách chụp hình đẹp đến cách check dashboard báo cáo. Đội ngũ support tiếng Việt 100%.</p></div>
+                    </details>
+                    <details class="faq-item" data-hover>
+                        <summary>Easy khác gì so với agency khác?</summary>
+                        <div class="faq-answer"><p>Easy Marketing CHUYÊN 100% cho ngành Nails, Spa, Salon và Nhà hàng tại Mỹ. Chúng tôi không làm marketing "mì ăn liền" cho mọi ngành như các agency chung chung. Đội ngũ am hiểu sâu thị trường, biết nhu cầu khách Mỹ, biết cách target theo zip code, biết xu hướng nail design đang hot. Đó là sự khác biệt lớn nhất.</p></div>
+                    </details>
+                    <details class="faq-item" data-hover>
+                        <summary>Thanh toán như thế nào?</summary>
+                        <div class="faq-answer"><p>Chấp nhận Zelle, Venmo, CashApp, PayPal hoặc chuyển khoản ngân hàng. Thanh toán hàng tháng vào ngày 1. Hóa đơn gửi qua email tự động. Nếu bạn ở gần Fayetteville, NC — có thể thanh toán cash trực tiếp tại văn phòng.</p></div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══ NEWS ═══ -->
+        <section class="news" id="news">
+            <div class="container">
+                <div class="section-head">
+                    <p class="section-label">( 08 — Blog )</p>
+                    <h2 class="section-title">Kiến thức marketing<br>cho chủ tiệm.</h2>
+                    <p class="section-desc">Chia sẻ bí quyết thực chiến giúp doanh nghiệp Nails, Spa & Nhà hàng tại Mỹ bứt phá doanh thu.</p>
+                </div>
+                <div class="news-grid">
+                    <article class="news-card" data-hover>
+                        <div class="news-thumb"><img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/liquid-glass-assets/img-nails.png' ); ?>" alt="SEO Local cho tiệm Nail" loading="lazy"></div>
+                        <div class="news-body">
+                            <span class="news-tag">SEO</span>
+                            <h3>Tăng 50% doanh thu tiệm Nail với chiến lược SEO Local</h3>
+                            <p>3 bước đơn giản đưa tiệm lên Top 1 Google Maps và thu hút khách hàng Mỹ bản địa tại khu vực.</p>
+                            <span class="news-date">15 Tháng 3, 2026</span>
+                        </div>
+                    </article>
+                    <article class="news-card" data-hover>
+                        <div class="news-thumb"><img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/liquid-glass-assets/img-spa.png' ); ?>" alt="Quản lý Fanpage Spa" loading="lazy"></div>
+                        <div class="news-body">
+                            <span class="news-tag">Social Media</span>
+                            <h3>Bí quyết quản lý Fanpage Spa: 7 loại content "câu" khách tự nhiên</h3>
+                            <p>Từ Before & After đến Client Testimonial — công thức content đã giúp 100+ spa tăng gấp 3 lượt tương tác.</p>
+                            <span class="news-date">8 Tháng 3, 2026</span>
+                        </div>
+                    </article>
+                    <article class="news-card" data-hover>
+                        <div class="news-thumb"><img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/liquid-glass-assets/img-restaurant.png' ); ?>" alt="Google Ads vs Facebook Ads" loading="lazy"></div>
+                        <div class="news-body">
+                            <span class="news-tag">Ads Strategy</span>
+                            <h3>Google Ads vs Facebook Ads: Hướng dẫn chọn đúng cho chủ tiệm</h3>
+                            <p>So sánh chi tiết chi phí, hiệu quả, và tình huống phù hợp nhất cho từng nền tảng quảng cáo.</p>
+                            <span class="news-date">1 Tháng 3, 2026</span>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══ CTA ═══ -->
+        <section class="cta">
+            <div class="container cta-inner">
+                <p class="section-label">( Bước Tiếp Theo )</p>
+                <h2 class="cta-title">Sẵn sàng<br><em>bứt phá?</em></h2>
+                <p class="cta-desc">Đừng để đối thủ đi trước bạn. Gọi ngay hôm nay để nhận 30 phút tư vấn chiến lược miễn phí — hoàn toàn không ràng buộc.</p>
+                <div class="cta-actions">
+                    <a href="tel:+13473437224" class="btn btn--primary"><span>Gọi Ngay: (347) 343-7224</span></a>
+                    <a href="mailto:easymarketingus@gmail.com" class="btn btn--ghost">Gửi Email Tư Vấn</a>
+                </div>
+                <p class="cta-note">Hoặc nhắn Zalo/WhatsApp: (347) 343-7224 · Phản hồi trong 2 giờ</p>
+            </div>
+        </section>
+
+        </main>
+
+        <!-- ═══ FOOTER ═══ -->
+        <footer class="footer-premium" id="contact">
+            <!-- Decorative Elements -->
+            <div class="footer-gradient-blur"></div>
+            <div class="footer-divider-top"></div>
+            
+            <div class="container">
+                <div class="footer-grid">
+                    <div class="footer-brand">
+                        <img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/liquid-glass-assets/logo.png' ); ?>" alt="Easy Marketing" class="footer-brand-logo">
+                        <p class="footer-tagline">Nâng tầm thương hiệu Việt trên đất Mỹ. Marketing sáng tạo · Khách hàng thật · Kết quả đo lường được.</p>
+                        <div class="footer-socials">
+                            <a href="#" class="social-icon" aria-label="Facebook">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path></svg>
+                            </a>
+                            <a href="#" class="social-icon" aria-label="Instagram">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                            </a>
+                            <a href="#" class="social-icon" aria-label="TikTok">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path></svg>
+                            </a>
+                            <a href="#" class="social-icon" aria-label="YouTube">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="footer-links-wrapper">
+                        <div class="footer-col">
+                            <h4>Dịch Vụ</h4>
+                            <ul>
+                                <li><a href="#services">Social Media</a></li>
+                                <li><a href="#services">SEO & Website</a></li>
+                                <li><a href="#services">Paid Ads</a></li>
+                                <li><a href="#services">Branding</a></li>
+                                <li><a href="#services">Review Mgmt</a></li>
+                            </ul>
+                        </div>
+                        <div class="footer-col">
+                            <h4>Công Ty</h4>
+                            <ul>
+                                <li><a href="#about">Về chúng tôi</a></li>
+                                <li><a href="#work">Portfolio</a></li>
+                                <li><a href="#news">Blog</a></li>
+                                <li><a href="#pricing">Bảng giá</a></li>
+                                <li><a href="#faq">FAQ</a></li>
+                            </ul>
+                        </div>
+                        <div class="footer-col footer-col--contact">
+                            <h4>Liên Hệ</h4>
+                            <ul>
+                                <li>
+                                    <svg class="contact-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                                    <a href="tel:+13473437224" class="contact-link">(347) 343-7224</a>
+                                </li>
+                                <li>
+                                    <svg class="contact-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                                    <a href="mailto:easymarketingus@gmail.com" class="contact-link">easymarketingus@gmail.com</a>
+                                </li>
+                                <li>
+                                    <svg class="contact-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                                    <p>1327 Morganton Rd, NC</p>
+                                </li>
+                                <li>
+                                    <svg class="contact-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                                    <p>Thứ 2 - Thứ 7: 9AM - 7PM EST</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <div class="footer-copyright">
+                        <p>&copy; 2026 Easy Marketing US. All Rights Reserved.</p>
+                    </div>
+                    <div class="footer-legal">
+                        <a href="#">Privacy Policy</a>
+                        <a href="#">Terms of Service</a>
                     </div>
                 </div>
             </div>
@@ -679,4 +907,7 @@ get_header();
     </div>
 
 <?php
-get_footer();
+wp_footer();
+?>
+</body>
+</html>
